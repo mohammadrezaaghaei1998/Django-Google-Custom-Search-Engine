@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            position:relative;
+            bottom:80px;
+
+        }
+        
+        h1{
+            position:relative;
+            padding-left:120px;
+            top:10px;
+            font-size: 24px;
+        }
+
+        .search-box {
+            margin-top: 20px;
+            display: flex;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 12px 20px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .search-button {
+            background-color: #f2f2f2;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+        }
+
+
+        .result{
+            display:flex;
+        }
+
+        h5{
+            position:relative;
+            bottom:100px;
+            left:550px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            width:700px;
+        }
+        
+        h3 a {
+            text-decoration: none;
+            color: #0077cc;
+        }
+        
+        p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Django Search Engine</h1>
+        <div class="container">
+            <form action="{% url 'search_view' %}" method="get">
+                <div class="search-box">
+                    <input type="text" name="q" class="search-input" placeholder="Search Google">
+                    <input type="submit" value="Search" class="search-button">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="result">
+        <h5>Search Results  "{{ query }}"</h5>
+        {% if results.items %}
+            <ul>
+                {% for item in results.items %}
+                    <li>
+                        <h3><a href="{{ item.link }}">{{ item.title }}</a></h3>
+                        <p>{{ item.snippet }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
